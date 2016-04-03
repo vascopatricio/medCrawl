@@ -22,7 +22,7 @@ func ObtainArticlesFromExcel () ([]Article, int, error){
 
     fmt.Println("Excel file successfully opened")
 
-    articlesSlice := articlesArray[:1]
+    articlesSlice := articlesArray[0:0]
     lenArticles := 0
 
     for _, sheet := range xlFile.Sheets {
@@ -64,13 +64,13 @@ func ObtainArticlesFromExcel () ([]Article, int, error){
 func ObtainSampleArticles () ([]Article, error) {
 
 	art1 := Article{
-		name:"Women in Science: Neurology professor inspires sophomore to pursue her dreams",
-		link: "http://www.wildcat.arizona.edu/article/2016/03/neurology-professor-inspires-sophomore-to-pursue-her-dreams",
+		Name:"Women in Science: Neurology professor inspires sophomore to pursue her dreams",
+		Link: "http://www.wildcat.arizona.edu/article/2016/03/neurology-professor-inspires-sophomore-to-pursue-her-dreams",
 		dateStr: "03/30/2016"}
 
 	art2 := Article{
-		name: "MU Neurology's art auction part of comprehensive approach",
-		link: "http://www.herald-dispatch.com/news/mu-neurology-s-art-auction-part-of-comprehensive-approach/article_7ced5b49-ba53-56ac-a8a6-32a26f0fbe20.html",
+		Name: "MU Neurology's art auction part of comprehensive approach",
+		Link: "http://www.herald-dispatch.com/news/mu-neurology-s-art-auction-part-of-comprehensive-approach/article_7ced5b49-ba53-56ac-a8a6-32a26f0fbe20.html",
 		dateStr: "03/31/2016"}
 
 	articles := make([]Article, 2)

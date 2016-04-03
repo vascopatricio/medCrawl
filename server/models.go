@@ -5,14 +5,14 @@ import (
 )
 
 type Article struct {
-	name string
-	link string
+	Name string
+	Link string
 	date time.Time
 	dateStr string
 }
 
 type Topic struct {
-	name string
+	Name string
 	specificity int
 }
 
@@ -24,13 +24,16 @@ type Article_Topic_Rel struct {
 
 // SetName receives a pointer to Foo so it can modify it.
 func (f *Article) SetName(name string) {
-    f.name = name
+    f.Name = name
+}
+func (f *Topic) SetName(name string) {
+    f.Name = name
 }
 func (f *Article_Topic_Rel) SetDescription(description string) {
     f.description = description
 }
 func (f *Article) SetLink(link string) {
-    f.link = link
+    f.Link = link
 }
 func (f *Article) SetDateStr(dateStr string) {
     f.dateStr = dateStr
