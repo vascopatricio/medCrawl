@@ -7,12 +7,14 @@ import (
 
 func topicsResource(w http.ResponseWriter, r *http.Request) {
 
-	topics := make([]Topic, 10)
-	topic1 := Topic{Name:"Neurology"}
-	topicsSlice := topics[0:0]
-	topicsSlice = append(topicsSlice, topic1)
+	excelArticles, excelTopics, excelRels, err := ObtainDataFromExcel()
+	fmt.Println("Obtained Excel articles: ",len(excelArticles))
+	fmt.Println("Obtained Excel topics: ",len(excelTopics))
+	fmt.Println("Obtained Excel rels: ",len(excelRels))
 
-	err := serveTopicsJsonResponse(w, topicsSlice)
+	_, excelTopics = embedArticleRelationInfo("articlesInTopics", excelRels, excelArticles, excelTopics)
+	
+	err = serveTopicsJsonResponse(w, excelTopics)
 	if err != nil {
 		fmt.Printf("Error obtaining topics: ",err)
 		return
@@ -21,17 +23,19 @@ func topicsResource(w http.ResponseWriter, r *http.Request) {
 
 func articlesResource(w http.ResponseWriter, r *http.Request) {
 
-	excelArticles, articlesLen, err := ObtainArticlesFromExcel()
-	fmt.Println("Obtained Excel articles: ",len(excelArticles), "length ",articlesLen)
+	excelArticles, excelTopics, excelRels, err := ObtainDataFromExcel()
+	fmt.Println("Obtained Excel articles: ",len(excelArticles))
+	fmt.Println("Obtained Excel topics: ",len(excelTopics))
+	fmt.Println("Obtained Excel rels: ",len(excelRels))
 
-	//articles, err := ObtainSampleArticles()
-	
+	excelArticles, _ = embedArticleRelationInfo("topicsInArticles", excelRels, excelArticles, excelTopics)
+
 	if err != nil {
 		fmt.Printf("Error obtaining sample articles: ",err)
 		return
 	}
 
-	err = serveArticlesJsonResponse(w, excelArticles[0:articlesLen])
+	err = serveArticlesJsonResponse(w, excelArticles)
 	if err != nil {
 		fmt.Printf("Error obtaining sample articles: ",err)
 		return
